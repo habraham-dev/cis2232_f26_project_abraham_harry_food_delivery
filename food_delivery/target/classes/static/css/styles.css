@@ -12,9 +12,9 @@ th{
 :root {
     /*Variable for team color*/
     /*light ac3e37 main 770711 dark 470000*/
-    --main-color-light: #9c9a9a;
-    --main-color-primary: #9c9a9a;
-    --main-color-dark: #000000;
+    --main-color-light: #ac3e37;
+    --main-color-primary: #770711;
+    --main-color-dark: #470000;
     --main-color-text: #fcba03;
     --main-color-bright: #ffffff;
 
@@ -41,11 +41,12 @@ nav, .nav, .navbar {
     background: var(--main-color-dark) !important;
     position: sticky !important;
 }
+
 .navbar-brand, .navbar-brand:hover {
     color: var(--main-color-primary);
 }
 
-.navbar-nav .nav-link.active, .navbar-nav, .nav-link.show, .nav-link, .nav-link:hover, .dropdown-toggle, .navbar-nav  .nav-link.show  {
+.navbar-nav .nav-link.active, .navbar-nav, .nav-link.show, .nav-link, .nav-link:hover, .dropdown-toggle, .navbar-nav .nav-link.show {
     color: var(--main-color-primary);
 }
 
@@ -66,6 +67,7 @@ th, tr, td {
 td {
     padding: 0 !important
 }
+
 tr, thead, th {
     white-space: normal;
 }
@@ -115,11 +117,9 @@ table {
     width: 100%
 }
 
-
 .centered {
     margin: 0 auto
 }
-
 
 .centered2, .has-text-centered {
     text-align: center
@@ -129,7 +129,6 @@ form {
     margin-bottom: 10px;
     margin-top: 10px;
 }
-
 
 .navbar-link, .navbar-link:focus, .navbar-bgn {
     color: var(--main-color-text) !important
@@ -142,10 +141,6 @@ form {
 body, p, strong, th {
     color: #000 !important
 }
-
-
-
-
 
 /*white background box.*/
 .wbb, .ddl {
