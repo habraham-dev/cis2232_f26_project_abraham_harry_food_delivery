@@ -6,7 +6,8 @@ import javax.validation.constraints.Size;
 import java.time.Instant;
 
 @Entity
-@Table(name = "CodeType", schema = "bjmac_squash_skills")
+//Issue#5 Removed the hard-coded squash schema so the database from application.properties is used.
+@Table(name = "CodeType")
 public class CodeType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

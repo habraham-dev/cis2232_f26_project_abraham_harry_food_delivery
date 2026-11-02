@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<!-- Issue#5 Order Summary Report (input form + results) - Harry Abraham 20261101 -->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head">
+    <title id="pageTitle">Order Summary Report</title>
+</head>
+<body>
+<style scoped="scoped">
+    .report-table th, .report-table td {
+        padding: 6px 14px !important;
+    }
+    .report-message {
+        font-weight: bold;
+        margin-top: 16px;
+    }
+</style>
+
+<nav th:replace="fragments/navHeader :: navbar"></nav>
+<div class="container has-text-centered">
+    <h2 class="title is-2">Order Summary Report</h2>
+
+    <!-- Input form: the user enters the Order ID -->
+    <form th:action="@{/report/order/summary/submit}" th:object="${reportInput}" method="post"
+          class="wbb" style="display:inline-block;text-align:left!important">
+        <label for="orderId">Order ID: </label>
+        <input type="number" id="orderId" min="1" th:field="*{orderId}" required="required"/>
+        <button style="display:block;margin-top:24px!important" class="centered">Submit</button>
+    </form>
+    <br/>
+
+    <!-- Message (no order found / please enter an id) -->
+    <p class="report-message" th:if="${not #strings.isEmpty(message)}" th:text="${message}">message</p>
+
+    <!-- Results -->
+    <div th:if="${not #lists.isEmpty(reportInput.orders)}">
+        <table class="wbb centered report-table">
+            <tr>
+                <th>Order ID</th>
+                <th>Customer Name</th>
+                <th>Restaurant Name</th>
+                <th>Food Subtotal</th>
+                <th>Delivery Distance</th>
+                <th>Delivery Fee</th>
+                <th>Tip Amount</th>
+                <th>Total Cost</th>
+            </tr>
+            <tr th:each="current : ${reportInput.orders}">
+                <td th:text="${current.orderId}"></td>
+                <td th:text="${current.customerName}"></td>
+                <td th:text="${current.restaurantName}"></td>
+                <td th:text="${'$' + #numbers.formatDecimal(current.foodSubtotal, 1, 2)}"></td>
+                <td th:text="${#numbers.formatDecimal(current.deliveryDistance, 1, 2) + ' km'}"></td>
+                <td th:text="${'$' + #numbers.formatDecimal(current.deliveryFee, 1, 2)}"></td>
+                <td th:text="${'$' + #numbers.formatDecimal(current.tipAmount, 1, 2)}"></td>
+                <td th:text="${'$' + #numbers.formatDecimal(current.totalCost, 1, 2)}"></td>
+            </tr>
+        </table>
+        <p class="report-message">This report was also saved to a file in C:\cis2232\</p>
+    </div>
+</div>
+<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>

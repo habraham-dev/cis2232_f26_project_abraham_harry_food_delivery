@@ -20,11 +20,14 @@ public class FileUtil {
 
     public static void writeToFile(String reportName, ArrayList theObjects) {
 
-        String datetime = CisUtility.getCurrentDate("yyyyMMddhhmmss");
+        //Issue#5 Use 24 hour time (HH) so 3:37 PM shows as 1537 like the sprint example.
+        String datetime = CisUtility.getCurrentDate("yyyyMMddHHmmss");
         String fileName = reportName.replaceAll(" ", "");
         relative = Paths.get("c:/cis2232/" + fileName+datetime+".txt");
 
         try {
+            //Issue#5 Create the c:/cis2232 folder first if it does not exist yet.
+            Files.createDirectories(relative.getParent());
             Files.createFile(relative);
             System.out.println("BJM writeToFile Created the file. " + relative);
         } catch (IOException ex) {
@@ -35,11 +38,11 @@ public class FileUtil {
         }
 
         writeToFile(reportName+" "+datetime);
-        
+
         if(theObjects == null ||theObjects.isEmpty()){
             writeToFile("no data found");
         }
-        
+
         for (Object current : theObjects) {
             writeToFile(current.toString());
         }
