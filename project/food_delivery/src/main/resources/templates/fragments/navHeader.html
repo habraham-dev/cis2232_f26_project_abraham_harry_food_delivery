@@ -21,6 +21,17 @@
                 <li class="nav-item">
                     <a class="nav-link active " aria-current="page" th:href="@{/}">Home</a>
                 </li>
+                <!-- Issue#6 Food delivery order CRUD -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle dropdown-toggle-split" th:href="@{/fooddeliveryorder}" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        Orders
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" th:href="@{/fooddeliveryorder}" href="#">View Orders</a></li>
+                        <li><a class="dropdown-item" th:href="@{/fooddeliveryorder/add}" href="#">Add Order</a></li>
+                    </ul>
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle dropdown-toggle-split" th:href="@{/skillsassessment}" href="#" role="button" data-bs-toggle="dropdown"
                        aria-expanded="false">

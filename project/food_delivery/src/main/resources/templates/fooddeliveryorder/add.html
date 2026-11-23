@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!-- Issue#6 Add/Edit page for food delivery orders (based on class example ticketorder/add.html) -->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head">
+    <title id="pageTitle">Add/Edit Order</title>
+</head>
+<body>
+<nav th:replace="fragments/navHeader :: navbar"></nav>
+<div class="container has-text-centered">
+    <h2 class="title is-2" th:if="${foodDeliveryOrder.orderId != null}">Edit Order</h2>
+    <h2 class="title is-2" th:if="${foodDeliveryOrder.orderId == null}">Add Order</h2>
+
+    <form th:action="@{/fooddeliveryorder/submit}" method="post" class="wbb" style="display:inline-block;text-align:left!important">
+
+        <!-- Hidden id: empty for Add (new row), filled for Edit (update existing row) -->
+        <input class="hidden" hidden="hidden" type="text" readonly="readonly" th:field="${foodDeliveryOrder.orderId}"></input>
+
+        <p><label>Customer Name: </label>
+            <input type="text" th:field="${foodDeliveryOrder.customerName}"></input>
+        </p>
+        <p class="cd" th:if="${#fields.hasErrors('${foodDeliveryOrder.customerName}')}" th:errors="${foodDeliveryOrder.customerName}"></p>
+
+        <p><label>Restaurant Name: </label>
+            <input type="text" th:field="${foodDeliveryOrder.restaurantName}"></input>
+        </p>
+        <p class="cd" th:if="${#fields.hasErrors('${foodDeliveryOrder.restaurantName}')}" th:errors="${foodDeliveryOrder.restaurantName}"></p>
+
+        <p><label>Food Subtotal ($): </label>
+            <input type="number" step="0.01" min="0" th:field="${foodDeliveryOrder.foodSubtotal}"></input>
+        </p>
+        <p class="cd" th:if="${#fields.hasErrors('${foodDeliveryOrder.foodSubtotal}')}" th:errors="${foodDeliveryOrder.foodSubtotal}"></p>
+
+        <p><label>Delivery Distance (km): </label>
+            <input type="number" step="0.01" min="0" th:field="${foodDeliveryOrder.deliveryDistance}"></input>
+        </p>
+        <p class="cd" th:if="${#fields.hasErrors('${foodDeliveryOrder.deliveryDistance}')}" th:errors="${foodDeliveryOrder.deliveryDistance}"></p>
+
+        <p><label>Tip Amount ($): </label>
+            <input type="number" step="0.01" min="0" th:field="${foodDeliveryOrder.tipAmount}"></input>
+        </p>
+        <p class="cd" th:if="${#fields.hasErrors('${foodDeliveryOrder.tipAmount}')}" th:errors="${foodDeliveryOrder.tipAmount}"></p>
+
+        <button style="display:block;margin-top:24px!important" class="centered">Submit</button>
+    </form>
+</div>
+<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>

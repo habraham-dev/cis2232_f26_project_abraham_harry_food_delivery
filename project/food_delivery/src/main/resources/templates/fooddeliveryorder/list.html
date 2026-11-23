@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<!-- Issue#6 List page for food delivery orders (based on class example ticketorder/list.html) -->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head">
+    <title id="pageTitle">Food Delivery Orders</title>
+</head>
+<body>
+<nav th:replace="fragments/navHeader :: navbar"></nav>
+<div class="container has-text-centered">
+    <h2 class="title is-2">Food Delivery Orders</h2>
+
+    <p><a class="button" th:href="@{/fooddeliveryorder/add}">Add Order</a></p>
+    <br></br>
+
+    <table class="wbb centered">
+        <tr>
+            <th>ID</th>
+            <th class="a"></th>
+            <th>Customer</th>
+            <th class="a"></th>
+            <th>Restaurant</th>
+            <th class="a"></th>
+            <th>Food Subtotal</th>
+            <th class="a"></th>
+            <th>Distance (km)</th>
+            <th class="a"></th>
+            <th>Delivery Fee</th>
+            <th class="a"></th>
+            <th>Tip</th>
+            <th class="a"></th>
+            <th>Total Cost</th>
+            <th class="a"></th>
+            <th>Options</th>
+        </tr>
+        <tr th:each="current : ${foodDeliveryOrders}">
+            <td th:text="${current.orderId}"></td>
+            <td></td>
+            <td th:text="${current.customerName}"></td>
+            <td></td>
+            <td th:text="${current.restaurantName}"></td>
+            <td></td>
+            <td th:text="${#numbers.formatCurrency(current.foodSubtotal)}"></td>
+            <td></td>
+            <td th:text="${#numbers.formatDecimal(current.deliveryDistance, 1, 2)}"></td>
+            <td></td>
+            <td th:text="${#numbers.formatCurrency(current.deliveryFee)}"></td>
+            <td></td>
+            <td th:text="${#numbers.formatCurrency(current.tipAmount)}"></td>
+            <td></td>
+            <td th:text="${#numbers.formatCurrency(current.totalCost)}"></td>
+            <td></td>
+            <td class="centered2">
+                <a th:href="@{/fooddeliveryorder/edit/{id}(id=${current.orderId})}">
+                    <span class="icon"><i class="fas fa-edit" title="Edit"></i></span>
+                </a>
+                <a th:href="@{/fooddeliveryorder/delete/{id}(id=${current.orderId})}" onclick="return confirm('Delete this order?');">
+                    <span class="icon"><i class="fas fa-trash" title="Delete"></i></span>
+                </a>
+            </td>
+        </tr>
+    </table>
+    <br></br>
+    <p class="wbb" style="display:inline-block">Total: <b><span th:text="${#lists.size(foodDeliveryOrders)}"></span></b> orders.</p>
+</div>
+<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>

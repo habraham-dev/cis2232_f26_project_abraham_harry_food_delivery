@@ -1,47 +1,74 @@
 package info.hccis.squash.jpa.entity;
 
+import java.io.Serializable;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * Entity class to hold the details of one food delivery order.
  * One object of this class = one row in the FoodDeliveryOrder table.
  *
+ * The validation annotations (@NotNull, @Size) are checked by Spring when the
+ * add/edit form is submitted (see @Valid in FoodDeliveryOrderController).
+ *
  * @author Harry Abraham
  * @since 20261101
  * Issue#5
+ * @modified 20261123 Harry Abraham Issue#6 Added Spring validation annotations
+ * and changed the user-entered amounts to Double so @NotNull can catch empty
+ * values.
  */
 @Entity
 @Table(name = "FoodDeliveryOrder")
-public class FoodDeliveryOrder {
+public class FoodDeliveryOrder implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
     @Column(name = "orderId")
     private Integer orderId;
 
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
     @Column(name = "customerName")
     private String customerName;
 
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 100)
     @Column(name = "restaurantName")
     private String restaurantName;
 
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "foodSubtotal")
-    private double foodSubtotal;
+    private Double foodSubtotal;
 
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "deliveryDistance")
-    private double deliveryDistance;
+    private Double deliveryDistance;
 
+    //Calculated by FoodDeliveryOrderBO (user does not enter this).
     @Column(name = "deliveryFee")
     private double deliveryFee;
 
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "tipAmount")
-    private double tipAmount;
+    private Double tipAmount;
 
+    //Calculated by FoodDeliveryOrderBO (user does not enter this).
     @Column(name = "totalCost")
     private double totalCost;
 
@@ -72,19 +99,19 @@ public class FoodDeliveryOrder {
         this.restaurantName = restaurantName;
     }
 
-    public double getFoodSubtotal() {
+    public Double getFoodSubtotal() {
         return foodSubtotal;
     }
 
-    public void setFoodSubtotal(double foodSubtotal) {
+    public void setFoodSubtotal(Double foodSubtotal) {
         this.foodSubtotal = foodSubtotal;
     }
 
-    public double getDeliveryDistance() {
+    public Double getDeliveryDistance() {
         return deliveryDistance;
     }
 
-    public void setDeliveryDistance(double deliveryDistance) {
+    public void setDeliveryDistance(Double deliveryDistance) {
         this.deliveryDistance = deliveryDistance;
     }
 
@@ -96,11 +123,11 @@ public class FoodDeliveryOrder {
         this.deliveryFee = deliveryFee;
     }
 
-    public double getTipAmount() {
+    public Double getTipAmount() {
         return tipAmount;
     }
 
-    public void setTipAmount(double tipAmount) {
+    public void setTipAmount(Double tipAmount) {
         this.tipAmount = tipAmount;
     }
 
